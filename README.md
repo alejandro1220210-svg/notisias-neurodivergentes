@@ -255,82 +255,148 @@
     </div>
 
     <!-- MODULOS DE FIREBASE -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
-        // ⚠️ REEMPLAZA ESTOS VALORES CON LOS DE TU CONSOLA DE FIREBASE:
-        const firebaseConfig = {
-            apiKey: "TU_API_KEY",
-            authDomain: "TU_PROJECT_ID.firebaseapp.com",
-            projectId: "TU_PROJECT_ID",
-            storageBucket: "TU_PROJECT_ID.appspot.com",
-            messagingSenderId: "TU_SENDER_ID",
-            appId: "TU_APP_ID"
-        };
+    import {
+        getFirestore,
+        collection,
+        addDoc,
+        onSnapshot,
+        query,
+        orderBy,
+        serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // Inicializar Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    /*
+     * IMPORTANTE:
+     * Reemplaza estos datos con los datos reales de tu proyecto Firebase.
+     */
+    const firebaseConfig = {
+        apiKey: "TU_API_KEY",
+        authDomain: "TU_PROJECT_ID.firebaseapp.com",
+        projectId: "TU_PROJECT_ID",
+        storageBucket: "TU_PROJECT_ID.appspot.com",
+        messagingSenderId: "TU_SENDER_ID",
+        appId: "TU_APP_ID"
+    };
 
-        // Estado local
-        window.articles = [];
-        window.activeCategory = 'Todas';
-        window.searchQuery = '';
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-        // Sincronización en Tiempo Real desde Firebase
-        const q = query(collection(db, "noticias"), orderBy("createdAt", "desc"));
-        onSnapshot(q, (snapshot) => {
-            window.articles = snapshot.docs.map(doc => ({
+    // Estado global de la aplicación
+    window.articles = [];
+    window.activeCategory = "Todas";
+    window.searchQuery = "";
+
+    /*
+     * Escuchar la colección "noticias" en tiempo real.
+     *
+     * Cuando cualquier persona publique una noticia,
+     * Firebase actualizará automáticamente esta página
+     * en todos los dispositivos conectados.
+     */
+    const noticiasQuery = query(
+        collection(db, "noticias"),
+        orderBy("createdAt", "desc")
+    );
+
+    onSnapshot(
+        noticiasQuery,
+        (snapshot) => {
+            window.articles = snapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data()
             }));
+
             renderCategoryNav();
             renderNews();
-        });
+        },
+        (error) => {
+            console.error("Error al cargar las noticias:", error);
 
-        // Función para Guardar una Noticia Pública
-        window.handlePublishArticle = async function(e) {
-            e.preventDefault();
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.innerText = "Guardando...";
+            document.getElementById("newsCountBadge").textContent =
+                "Error de conexión";
 
-            const title = document.getElementById('postTitle').value;
-            const category = document.getElementById('postCategory').value;
-            const author = document.getElementById('postAuthor').value;
-            const imageInput = document.getElementById('postImage').value;
-            const summary = document.getElementById('postSummary').value;
-            const content = document.getElementById('postContent').value;
-            const isBreaking = document.getElementById('postIsBreaking').checked;
+            document.getElementById("featuredNewsContainer").innerHTML = `
+                <div class="text-center py-12 bg-white dark:bg-slate-900 rounded-xl border border-red-200 dark:border-red-900">
+                    <h3 class="font-headline font-bold text-lg text-red-600">
+                        No se pudieron cargar las noticias
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-2">
+                        Revisa la configuración de Firebase y Firestore.
+                    </p>
+                </div>
+            `;
+        }
+    );
 
-            const defaultImg = 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1000&auto=format&fit=crop';
+    /*
+     * Guardar una noticia en Firebase.
+     * Después de guardarla, todos los usuarios conectados
+     * la recibirán automáticamente mediante onSnapshot().
+     */
+    window.handlePublishArticle = async function (event) {
+        event.preventDefault();
 
-            try {
-                await addDoc(collection(db, "noticias"), {
-                    title,
-                    category,
-                    author,
-                    summary,
-                    content,
-                    image: imageInput.trim() !== '' ? imageInput : defaultImg,
-                    isBreaking,
-                    views: 1,
-                    createdAt: serverTimestamp()
-                });
+        const submitBtn = document.getElementById("submitBtn");
 
-                closePublishModal();
-                showToast('¡Noticia publicada globalmente!');
-            } catch (err) {
-                console.error("Error al guardar:", err);
-                alert("Error al conectar con la base de datos. Verifica tus credenciales de Firebase.");
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i> Publicar para Todos`;
-                lucide.createIcons();
-            }
-        };
-    </script>
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = "Guardando...";
+
+        const title = document.getElementById("postTitle").value.trim();
+        const category = document.getElementById("postCategory").value;
+        const author = document.getElementById("postAuthor").value.trim();
+        const imageInput = document.getElementById("postImage").value.trim();
+        const summary = document.getElementById("postSummary").value.trim();
+        const content = document.getElementById("postContent").value.trim();
+        const isBreaking =
+            document.getElementById("postIsBreaking").checked;
+
+        const defaultImage =
+            "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1000&auto=format&fit=crop";
+
+        try {
+            await addDoc(collection(db, "noticias"), {
+                title: title,
+                category: category,
+                author: author,
+                summary: summary,
+                content: content,
+                image: imageInput || defaultImage,
+                isBreaking: isBreaking,
+                views: 1,
+
+                // Fecha creada por el servidor de Firebase
+                createdAt: serverTimestamp()
+            });
+
+            closePublishModal();
+
+            showToast(
+                "¡Noticia publicada! Ahora todos pueden verla."
+            );
+
+        } catch (error) {
+            console.error("Error al publicar la noticia:", error);
+
+            alert(
+                "No se pudo publicar la noticia. Revisa los datos de Firebase y las reglas de Firestore."
+            );
+
+        } finally {
+            submitBtn.disabled = false;
+
+            submitBtn.innerHTML = `
+                <i data-lucide="check" class="w-4 h-4"></i>
+                Publicar para Todos
+            `;
+
+            lucide.createIcons();
+        }
+    };
+</script>
 
     <!-- SCRIPTS DE UI DE LA PÁGINA -->
     <script>
