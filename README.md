@@ -1,4 +1,3 @@
-[index.html](https://github.com/user-attachments/files/32612909/index.html)
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
@@ -31,16 +30,10 @@
             }
         }
     </script>
-    <!-- Google Fonts for Editorial Aesthetics -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&display=swap" rel="stylesheet">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        h1, h2, h3, .font-headline { font-family: 'Merriweather', Georgia, serif; }
-        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-    </style>
 </head>
 <body class="bg-paper dark:bg-paperDark text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-200">
 
@@ -108,30 +101,29 @@
             </div>
         </div>
 
-        <!-- Section Title / Active Filter Indicator -->
         <div class="flex items-center justify-between mb-6 pb-2 border-b-2 border-brand-600">
             <h2 id="activeCategoryTitle" class="text-xl sm:text-2xl font-bold font-headline uppercase text-slate-900 dark:text-white flex items-center gap-2">
                 <i data-lucide="newspaper" class="w-6 h-6 text-brand-600"></i> Últimas Noticias
             </h2>
             <span id="newsCountBadge" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-                0 Noticias
+                Cargando...
             </span>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <!-- Main News Feed (8 cols) -->
+            <!-- Main News Feed -->
             <div class="lg:col-span-8 space-y-8">
                 <div id="featuredNewsContainer"></div>
                 <div>
                     <h3 class="text-lg font-bold font-headline mb-4 pb-2 border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white flex items-center justify-between">
                         <span>Otras Publicaciones</span>
-                        <span class="text-xs font-normal text-slate-500">Actualizado recientemente</span>
+                        <span class="text-xs font-normal text-slate-500">Conexión en vivo</span>
                     </h3>
                     <div id="recentNewsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-6"></div>
                 </div>
             </div>
 
-            <!-- Sidebar (4 cols) -->
+            <!-- Sidebar -->
             <aside class="lg:col-span-4 space-y-8">
                 <div class="bg-brand-50 dark:bg-slate-900/90 border border-brand-200 dark:border-brand-900/50 rounded-xl p-5 shadow-sm">
                     <div class="flex items-center justify-between mb-4">
@@ -143,33 +135,19 @@
                     </div>
                     <div id="breakingNewsSidebar" class="space-y-3 divide-y divide-brand-100 dark:divide-slate-800"></div>
                 </div>
-
-                <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-xl p-6 shadow-md relative overflow-hidden">
-                    <div class="relative z-10">
-                        <span class="text-brand-400 text-xs font-bold uppercase tracking-wider">Periodismo Ciudadano</span>
-                        <h4 class="font-headline font-bold text-xl mt-1 mb-2">¿Tienes una noticia que compartir?</h4>
-                        <p class="text-slate-300 text-xs leading-relaxed mb-4">
-                            Súmate como colaborador. Publica primicias, eventos o artículos de tu interés en segundos.
-                        </p>
-                        <button onclick="openPublishModal()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 px-4 rounded-lg text-xs uppercase tracking-wider transition-colors shadow flex items-center justify-center gap-2">
-                            <i data-lucide="plus-circle" class="w-4 h-4"></i> Redactar Noticia Ahora
-                        </button>
-                    </div>
-                    <i data-lucide="newspaper" class="w-32 h-32 text-slate-800/40 absolute -right-6 -bottom-6 pointer-events-none"></i>
-                </div>
             </aside>
         </div>
     </main>
 
     <!-- MODAL 1: Publicar Noticia -->
     <div id="publishModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden overflow-y-auto">
-        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden my-8 transform transition-all">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden my-8">
             <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
                 <div class="flex items-center gap-2">
                     <i data-lucide="pen-tool" class="w-5 h-5 text-brand-500"></i>
                     <h3 class="font-headline font-bold text-lg">Publicar Nueva Noticia</h3>
                 </div>
-                <button onclick="closePublishModal()" class="text-slate-400 hover:text-white transition-colors">
+                <button onclick="closePublishModal()" class="text-slate-400 hover:text-white">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
             </div>
@@ -178,7 +156,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="sm:col-span-2">
                         <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Título de la Noticia *</label>
-                        <input type="text" id="postTitle" required placeholder="Ej: Nuevas novedades en la comunidad" class="w-full px-3 py-2.5 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-600 outline-none">
+                        <input type="text" id="postTitle" required placeholder="Ej: Avances en la comunidad" class="w-full px-3 py-2.5 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-600 outline-none">
                     </div>
 
                     <div>
@@ -205,17 +183,17 @@
                     </div>
 
                     <div class="sm:col-span-2">
-                        <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Resumen / Copete *</label>
-                        <textarea id="postSummary" rows="2" required placeholder="Breve síntesis..." class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-600 outline-none"></textarea>
+                        <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Resumen *</label>
+                        <textarea id="postSummary" rows="2" required placeholder="Breve descripción..." class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-600 outline-none"></textarea>
                     </div>
 
                     <div class="sm:col-span-2">
                         <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">Cuerpo Completo *</label>
-                        <textarea id="postContent" rows="6" required placeholder="Escribe el desarrollo completo..." class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-600 outline-none font-sans"></textarea>
+                        <textarea id="postContent" rows="6" required placeholder="Escribe el artículo..." class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-600 outline-none"></textarea>
                     </div>
 
                     <div class="sm:col-span-2 flex items-center gap-3 py-2">
-                        <input type="checkbox" id="postIsBreaking" class="w-4 h-4 text-brand-600 rounded focus:ring-brand-500 border-slate-300">
+                        <input type="checkbox" id="postIsBreaking" class="w-4 h-4 text-brand-600 rounded">
                         <label for="postIsBreaking" class="text-xs font-bold uppercase text-slate-800 dark:text-slate-200 cursor-pointer flex items-center gap-1.5">
                             <i data-lucide="zap" class="w-4 h-4 text-brand-600"></i> Marcar como "Última Hora"
                         </label>
@@ -223,16 +201,16 @@
                 </div>
 
                 <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-3">
-                    <button type="button" onclick="closePublishModal()" class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">Cancelar</button>
-                    <button type="submit" class="px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold uppercase tracking-wider rounded-lg shadow transition-colors flex items-center gap-2">
-                        <i data-lucide="check" class="w-4 h-4"></i> Publicar Ahora
+                    <button type="button" onclick="closePublishModal()" class="px-4 py-2 text-xs font-bold uppercase text-slate-600 dark:text-slate-300">Cancelar</button>
+                    <button type="submit" id="submitBtn" class="px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold uppercase rounded-lg shadow flex items-center gap-2">
+                        <i data-lucide="check" class="w-4 h-4"></i> Publicar para Todos
                     </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- MODAL 2: Reader / Article Detail Modal -->
+    <!-- MODAL 2: Lector de Noticia -->
     <div id="readerModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-2 sm:p-4 hidden overflow-y-auto">
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-4xl shadow-2xl overflow-hidden my-6 max-h-[92vh] flex flex-col">
             <div class="px-6 py-3 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/90">
@@ -242,25 +220,21 @@
                         <i data-lucide="zap" class="w-3 h-3"></i> Última Hora
                     </span>
                 </div>
-                <button onclick="closeReaderModal()" class="p-1 rounded-full text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors">
+                <button onclick="closeReaderModal()" class="p-1 rounded-full text-slate-400 hover:text-slate-800 dark:hover:text-white">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
             </div>
 
             <div class="p-6 sm:p-10 overflow-y-auto space-y-6">
-                <h1 id="readerTitle" class="text-2xl sm:text-4xl font-extrabold font-headline leading-tight text-slate-900 dark:text-white">Título de la noticia</h1>
+                <h1 id="readerTitle" class="text-2xl sm:text-4xl font-extrabold font-headline leading-tight text-slate-900 dark:text-white">Título</h1>
 
                 <div class="flex flex-wrap items-center justify-between gap-4 py-3 border-y border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
                     <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center font-bold text-slate-700 dark:text-slate-200 uppercase" id="readerAuthorAvatar">EF</div>
+                        <div class="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center font-bold uppercase" id="readerAuthorAvatar">EF</div>
                         <div>
                             <p class="font-bold text-slate-800 dark:text-slate-200" id="readerAuthor">Por Redacción</p>
-                            <p id="readerDate">Publicado hoy</p>
+                            <p id="readerDate">Publicado recientemente</p>
                         </div>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <span class="flex items-center gap-1"><i data-lucide="clock" class="w-4 h-4"></i> <span id="readerReadTime">3 min lectura</span></span>
-                        <span class="flex items-center gap-1"><i data-lucide="eye" class="w-4 h-4"></i> <span id="readerViews">0 vistas</span></span>
                     </div>
                 </div>
 
@@ -268,28 +242,8 @@
                     <img id="readerImage" src="" alt="Noticia" class="w-full h-full object-cover">
                 </div>
 
-                <p id="readerSummary" class="text-lg font-headline italic font-medium text-slate-700 dark:text-slate-300 leading-relaxed border-l-4 border-brand-600 pl-4 py-1">Resumen de la noticia...</p>
-
-                <div id="readerContent" class="text-base sm:text-lg text-slate-800 dark:text-slate-200 leading-relaxed space-y-4 font-sans whitespace-pre-line">Cuerpo del artículo...</div>
-
-                <!-- Comments Section -->
-                <div class="pt-8 border-t border-slate-200 dark:border-slate-800">
-                    <h3 class="text-xl font-bold font-headline mb-6 text-slate-900 dark:text-white flex items-center gap-2">
-                        <i data-lucide="message-square" class="w-5 h-5 text-brand-600"></i> Comentarios (<span id="commentCount">0</span>)
-                    </h3>
-
-                    <form onsubmit="handleAddComment(event)" class="mb-8 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
-                            <input type="text" id="commentAuthor" required placeholder="Tu nombre *" class="px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-brand-600 outline-none">
-                        </div>
-                        <textarea id="commentText" rows="3" required placeholder="Opina sobre esta noticia..." class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-brand-600 outline-none mb-3"></textarea>
-                        <button type="submit" class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold uppercase rounded-lg shadow transition-colors">
-                            Publicar Comentario
-                        </button>
-                    </form>
-
-                    <div id="commentsList" class="space-y-4"></div>
-                </div>
+                <p id="readerSummary" class="text-lg font-headline italic font-medium text-slate-700 dark:text-slate-300 leading-relaxed border-l-4 border-brand-600 pl-4 py-1">Resumen...</p>
+                <div id="readerContent" class="text-base sm:text-lg text-slate-800 dark:text-slate-200 leading-relaxed space-y-4 whitespace-pre-line">Contenido...</div>
             </div>
         </div>
     </div>
@@ -300,36 +254,88 @@
         <span id="toastMessage" class="text-sm font-medium">Notificación</span>
     </div>
 
-    <script>
-        const INITIAL_ARTICLES = [
-            {
-                id: 'art-neuro-ix',
-                title: 'Últimas noticias en el grupo Neurodivergentes IX: avances, proyectos y novedades comunitarias',
-                category: 'Comunidad',
-                author: 'Redacción Central',
-                date: new Date().toISOString(),
-                summary: 'El grupo Neurodivergentes IX presenta sus actualizaciones recientes, iniciativas colaborativas y próximos espacios de integración.',
-                content: `En esta nueva actualización, el grupo Neurodivergentes IX comparte sus avances más recientes en la creación de espacios inclusivos y colaborativos.\n\nDurante los últimos días, los integrantes han coordinado diferentes dinámicas de participación para fortalecer la comunidad, promoviendo el intercambio de ideas, recursos educativos y espacios de apoyo mutuo.\n\nEntre los puntos más destacados se encuentran nuevas propuestas de integración, talleres de aprendizaje y la consolidación de canales abiertos para la libre expresión y colaboración ciudadana.`,
-                image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop',
-                isBreaking: true,
-                views: 2890,
-                comments: [
-                    { author: 'Mateo G.', date: 'Hace 30 minutos', text: 'Excelente noticia y grandes avances para la comunidad.' }
-                ]
-            }
-        ];
+    <!-- MODULOS DE FIREBASE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // State
-        let articles = INITIAL_ARTICLES;
-        let activeCategory = 'Todas';
-        let searchQuery = '';
-        let activeArticle = null;
+        // ⚠️ REEMPLAZA ESTOS VALORES CON LOS DE TU CONSOLA DE FIREBASE:
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "TU_PROJECT_ID.firebaseapp.com",
+            projectId: "TU_PROJECT_ID",
+            storageBucket: "TU_PROJECT_ID.appspot.com",
+            messagingSenderId: "TU_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
 
-        // Init
-        document.addEventListener('DOMContentLoaded', () => {
-            updateDate();
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Estado local
+        window.articles = [];
+        window.activeCategory = 'Todas';
+        window.searchQuery = '';
+
+        // Sincronización en Tiempo Real desde Firebase
+        const q = query(collection(db, "noticias"), orderBy("createdAt", "desc"));
+        onSnapshot(q, (snapshot) => {
+            window.articles = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
             renderCategoryNav();
             renderNews();
+        });
+
+        // Función para Guardar una Noticia Pública
+        window.handlePublishArticle = async function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Guardando...";
+
+            const title = document.getElementById('postTitle').value;
+            const category = document.getElementById('postCategory').value;
+            const author = document.getElementById('postAuthor').value;
+            const imageInput = document.getElementById('postImage').value;
+            const summary = document.getElementById('postSummary').value;
+            const content = document.getElementById('postContent').value;
+            const isBreaking = document.getElementById('postIsBreaking').checked;
+
+            const defaultImg = 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1000&auto=format&fit=crop';
+
+            try {
+                await addDoc(collection(db, "noticias"), {
+                    title,
+                    category,
+                    author,
+                    summary,
+                    content,
+                    image: imageInput.trim() !== '' ? imageInput : defaultImg,
+                    isBreaking,
+                    views: 1,
+                    createdAt: serverTimestamp()
+                });
+
+                closePublishModal();
+                showToast('¡Noticia publicada globalmente!');
+            } catch (err) {
+                console.error("Error al guardar:", err);
+                alert("Error al conectar con la base de datos. Verifica tus credenciales de Firebase.");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i> Publicar para Todos`;
+                lucide.createIcons();
+            }
+        };
+    </script>
+
+    <!-- SCRIPTS DE UI DE LA PÁGINA -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDate();
             lucide.createIcons();
         });
 
@@ -344,7 +350,9 @@
         }
 
         function getCategories() {
-            return ['Todas', ...new Set(articles.map(a => a.category))];
+            const defaultCats = ['Todas', 'Comunidad', 'Tecnología', 'Cultura', 'Economía', 'Deportes', 'Ciencia', 'Opinión'];
+            const existingCats = articles.map(a => a.category);
+            return [...new Set([...defaultCats, ...existingCats])];
         }
 
         function renderCategoryNav() {
@@ -372,9 +380,8 @@
             return articles.filter(art => {
                 const matchesCat = activeCategory === 'Todas' || art.category === activeCategory;
                 const matchesSearch = !searchQuery || 
-                    art.title.toLowerCase().includes(searchQuery) || 
-                    art.summary.toLowerCase().includes(searchQuery) ||
-                    art.content.toLowerCase().includes(searchQuery);
+                    art.title?.toLowerCase().includes(searchQuery) || 
+                    art.summary?.toLowerCase().includes(searchQuery);
                 return matchesCat && matchesSearch;
             });
         }
@@ -382,17 +389,13 @@
         function renderNews() {
             const filtered = getFilteredArticles();
             document.getElementById('newsCountBadge').textContent = `${filtered.length} Noticias`;
-            document.getElementById('activeCategoryTitle').innerHTML = `
-                <i data-lucide="newspaper" class="w-6 h-6 text-brand-600"></i>
-                ${activeCategory === 'Todas' ? 'Últimas Noticias' : activeCategory}
-            `;
 
             if (filtered.length === 0) {
                 document.getElementById('featuredNewsContainer').innerHTML = `
                     <div class="text-center py-12 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
-                        <i data-lucide="search-x" class="w-12 h-12 text-slate-400 mx-auto mb-3"></i>
-                        <h3 class="font-headline font-bold text-lg">No se encontraron noticias</h3>
-                        <p class="text-xs text-slate-500 mt-1">Prueba filtrando por otra categoría o búsqueda.</p>
+                        <i data-lucide="newspaper" class="w-12 h-12 text-slate-400 mx-auto mb-3"></i>
+                        <h3 class="font-headline font-bold text-lg">Aún no hay noticias públicas</h3>
+                        <p class="text-xs text-slate-500 mt-1">Haz clic en "Publicar Artículo" para agregar la primera noticia global.</p>
                     </div>
                 `;
                 document.getElementById('recentNewsGrid').innerHTML = '';
@@ -404,7 +407,7 @@
             const featured = filtered.find(a => a.isBreaking) || filtered[0];
             const recent = filtered.filter(a => a.id !== featured.id);
 
-            // Featured
+            // Destacada
             document.getElementById('featuredNewsContainer').innerHTML = `
                 <div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group cursor-pointer" onclick="openReaderModal('${featured.id}')">
                     <div class="relative h-64 sm:h-80 overflow-hidden">
@@ -420,36 +423,31 @@
                         <p class="text-sm text-slate-600 dark:text-slate-300 line-clamp-3 mb-4 leading-relaxed">${featured.summary}</p>
                         <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-3 border-t border-slate-100 dark:border-slate-800">
                             <span>Por ${featured.author}</span>
-                            <span>${featured.views} vistas</span>
+                            <span>Global</span>
                         </div>
                     </div>
                 </div>
             `;
 
-            // Recent Grid
+            // Grilla secundaria
             const recentGrid = document.getElementById('recentNewsGrid');
-            if (recent.length === 0) {
-                recentGrid.innerHTML = `<p class="text-xs text-slate-500 italic col-span-2">No hay más publicaciones en esta sección por el momento.</p>`;
-            } else {
-                recentGrid.innerHTML = recent.map(art => `
-                    <article class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group cursor-pointer flex flex-col" onclick="openReaderModal('${art.id}')">
-                        <div class="relative h-44 overflow-hidden">
-                            <img src="${art.image}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <span class="absolute top-3 left-3 px-2.5 py-0.5 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-bold uppercase rounded-full">${art.category}</span>
+            recentGrid.innerHTML = recent.map(art => `
+                <article class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group cursor-pointer flex flex-col" onclick="openReaderModal('${art.id}')">
+                    <div class="relative h-44 overflow-hidden">
+                        <img src="${art.image}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 px-2.5 py-0.5 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-bold uppercase rounded-full">${art.category}</span>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-headline font-bold text-base text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors line-clamp-2 mb-2">${art.title}</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed mb-3">${art.summary}</p>
                         </div>
-                        <div class="p-4 flex-1 flex flex-col justify-between">
-                            <div>
-                                <h4 class="font-headline font-bold text-base text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors line-clamp-2 mb-2">${art.title}</h4>
-                                <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed mb-3">${art.summary}</p>
-                            </div>
-                            <div class="flex items-center justify-between text-[11px] text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
-                                <span>Por ${art.author}</span>
-                                <span>${art.views} vistas</span>
-                            </div>
+                        <div class="flex items-center justify-between text-[11px] text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
+                            <span>Por ${art.author}</span>
                         </div>
-                    </article>
-                `).join('');
-            }
+                    </div>
+                </article>
+            `).join('');
 
             renderSidebarWidgets();
             lucide.createIcons();
@@ -460,7 +458,7 @@
             const breakingSidebar = document.getElementById('breakingNewsSidebar');
             
             if (breaking.length === 0) {
-                breakingSidebar.innerHTML = `<p class="text-xs text-slate-500 py-2">No hay alertas de última hora en este momento.</p>`;
+                breakingSidebar.innerHTML = `<p class="text-xs text-slate-500 py-2">No hay alertas de última hora registradas.</p>`;
             } else {
                 breakingSidebar.innerHTML = breaking.map(item => `
                     <div class="pt-3 first:pt-0 cursor-pointer group" onclick="openReaderModal('${item.id}')">
@@ -471,7 +469,6 @@
             }
         }
 
-        // Modals & Interactivity
         function openPublishModal() {
             document.getElementById('publishModal').classList.remove('hidden');
         }
@@ -481,108 +478,30 @@
             document.getElementById('publishForm').reset();
         }
 
-        function handlePublishArticle(e) {
-            e.preventDefault();
-            const newArt = {
-                id: 'art-' + Date.now(),
-                title: document.getElementById('postTitle').value.trim(),
-                category: document.getElementById('postCategory').value,
-                author: document.getElementById('postAuthor').value.trim(),
-                date: new Date().toISOString(),
-                summary: document.getElementById('postSummary').value.trim(),
-                content: document.getElementById('postContent').value.trim(),
-                image: document.getElementById('postImage').value.trim() || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1000&auto=format&fit=crop',
-                isBreaking: document.getElementById('postIsBreaking').checked,
-                views: 1,
-                comments: []
-            };
-
-            articles.unshift(newArt);
-            closePublishModal();
-            renderCategoryNav();
-            renderNews();
-            showToast('¡Artículo publicado con éxito!');
-        }
-
         function openReaderModal(id) {
-            const art = articles.find(a => a.id === id);
-            if (!art) return;
-            
-            activeArticle = art;
-            art.views += 1;
+            const article = articles.find(a => a.id === id);
+            if (!article) return;
 
-            document.getElementById('readerCategory').textContent = art.category;
-            
+            document.getElementById('readerCategory').textContent = article.category;
             const breakingBadge = document.getElementById('readerBreakingBadge');
-            if (art.isBreaking) {
+            if (article.isBreaking) {
                 breakingBadge.classList.remove('hidden');
             } else {
                 breakingBadge.classList.add('hidden');
             }
 
-            document.getElementById('readerTitle').textContent = art.title;
-            document.getElementById('readerAuthor').textContent = `Por ${art.author}`;
-            document.getElementById('readerAuthorAvatar').textContent = art.author.slice(0, 2).toUpperCase();
-            document.getElementById('readerDate').textContent = new Date(art.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
-            
-            const wordCount = art.content.split(/\s+/).length;
-            const readMinutes = Math.max(1, Math.ceil(wordCount / 200));
-            document.getElementById('readerReadTime').textContent = `${readMinutes} min lectura`;
-            document.getElementById('readerViews').textContent = `${art.views} vistas`;
-            
-            document.getElementById('readerImage').src = art.image;
-            document.getElementById('readerSummary').textContent = art.summary;
-            document.getElementById('readerContent').textContent = art.content;
+            document.getElementById('readerTitle').textContent = article.title;
+            document.getElementById('readerAuthor').textContent = `Por ${article.author}`;
+            document.getElementById('readerImage').src = article.image;
+            document.getElementById('readerSummary').textContent = article.summary;
+            document.getElementById('readerContent').textContent = article.content;
 
-            renderComments();
             document.getElementById('readerModal').classList.remove('hidden');
-            renderNews();
+            lucide.createIcons();
         }
 
         function closeReaderModal() {
             document.getElementById('readerModal').classList.add('hidden');
-            activeArticle = null;
-        }
-
-        function renderComments() {
-            if (!activeArticle) return;
-            document.getElementById('commentCount').textContent = activeArticle.comments.length;
-            const list = document.getElementById('commentsList');
-
-            if (activeArticle.comments.length === 0) {
-                list.innerHTML = `<p class="text-xs text-slate-400 italic">Aún no hay comentarios. Sé el primero en opinar.</p>`;
-                return;
-            }
-
-            list.innerHTML = activeArticle.comments.map(c => `
-                <div class="bg-slate-50 dark:bg-slate-800/40 p-3 rounded-lg border border-slate-100 dark:border-slate-800 text-xs">
-                    <div class="flex items-center justify-between font-bold text-slate-800 dark:text-slate-200 mb-1">
-                        <span>${c.author}</span>
-                        <span class="text-[10px] font-normal text-slate-400">${c.date}</span>
-                    </div>
-                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed">${c.text}</p>
-                </div>
-            `).join('');
-        }
-
-        function handleAddComment(e) {
-            e.preventDefault();
-            if (!activeArticle) return;
-
-            const author = document.getElementById('commentAuthor').value.trim();
-            const text = document.getElementById('commentText').value.trim();
-
-            if (author && text) {
-                activeArticle.comments.push({
-                    author: author,
-                    date: 'Hace un momento',
-                    text: text
-                });
-                document.getElementById('commentAuthor').value = '';
-                document.getElementById('commentText').value = '';
-                renderComments();
-                showToast('Comentario añadido.');
-            }
         }
 
         function showToast(msg) {
